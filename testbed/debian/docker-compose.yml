@@ -1,0 +1,60 @@
+name: ipv6
+services:
+  alice:
+    container_name: alice
+    hostname: alice
+    build:
+      context: client_container
+      dockerfile: Dockerfile
+    networks:
+      ip6net:
+        mac_address: "00:00:00:00:00:aa"
+        # TODO: Switch to unique local address? https://unique-local-ipv6.com/#
+        # ipv6_address: "2001:db8::aa"
+        ipv6_address: "fd9f:7fa1:4256::aa"
+    depends_on:
+      - router
+
+  bob:
+    container_name: bob
+    hostname: bob
+    build:
+      context: client_container
+      dockerfile: Dockerfile
+    networks:
+      ip6net:
+        mac_address: "00:00:00:00:00:bb"
+        # ipv6_address: "2001:db8::bb"
+        ipv6_address: "fd9f:7fa1:4256::bb"
+    depends_on:
+      - router
+
+  router:
+    container_name: router
+    hostname: router
+    #command: sleep infinity
+    build:
+      context: router_container
+      dockerfile: Dockerfile
+    volumes:
+      # if we point the file radvd.conf directly from a Windows symlink into etc folder, it has the permissions -rwxrwxrwx
+      # radvd complains that the world has write privileges to this file and simply exits
+      # as we use a symlink into Windows here, permissions can't be change within the container
+      # instead, point the file to the root folder and copy that file to the right place inside the container (see: init.sh)
+      - ./router_container/radvd.conf:/radvd.conf
+      - ./router_container/dhcpd6.conf:/dhcpd6.conf
+    networks:
+      ip6net:
+        mac_address: "00:00:00:00:00:ee"
+        # ipv6_address: "2001:db8::ee"
+        ipv6_address: "fd9f:7fa1:4256::ee"
+
+networks:
+  ip6net:
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: fd9f:7fa1:4256::/64
+        #- subnet: 2001:db8::/64
+          # don't know what docker does with the gateway here
+          #gateway: 2001:db8::1
