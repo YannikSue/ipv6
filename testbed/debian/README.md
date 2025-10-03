@@ -18,8 +18,8 @@ The bash in Debian is the main place to interact with Wireshark and manipulate t
 
 | Name | MAC Address | Link Local Address | Unique Local Address (ULA) | Content | Details |
 | --- | --- | --- | --- | --- | --- |
-| **alice** | 00:00:00:00:00:aa | fe80::200:ff:fe00:aa | fd9f:7fa1:4256::aa | interactive tools and running test services for IPv6 | [client_container](client_container) |
-| **bob** | 00:00:00:00:00:bb | fe80::200:ff:fe00:bb | fd9f:7fa1:4256::bb | same as alice but with a different IPv6 address | [client_container](client_container) |
+| **alice** | 00:00:00:00:00:aa | fe80::200:ff:fe00:aa | fd9f:7fa1:4256::aa | interactive tools and running test services for IPv6 | [user_container](user_container) |
+| **bob** | 00:00:00:00:00:bb | fe80::200:ff:fe00:bb | fd9f:7fa1:4256::bb | same as alice but with a different IPv6 address | [user_container](user_container) |
 | **router** | 00:00:00:00:00:ee | fe80::200:ff:fe00:ee | fd9f:7fa1:4256::ee | radvd daemon (IPv6 router advertisement) | [router_container](router_container) |
 
 The address suffixes aa, bb and ee become very handy when looking into Wireshark captures :smile:
