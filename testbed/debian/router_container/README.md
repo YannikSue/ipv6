@@ -5,7 +5,7 @@ A docker container intended to provide various IPv6 related infrastructure servi
 **:warning: WARNING: The following services are highly experimental!**
 
 * [Dockerfile](Dockerfile): configuration of the docker container
-* [init.sh](init.sh): bash script for the container start that prepares and starts the daemons
+* [init.sh](init.sh): bash script to prepare and start the daemons
 * radvd.conf
 * dhcpd6.conf
 
