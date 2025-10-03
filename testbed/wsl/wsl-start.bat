@@ -6,8 +6,8 @@ echo --- Set user to root ---
 wsl --manage Debian-IPv6 --set-default-user root
 
 echo --- Link testbed files to Debian-IPv6 ---
-rem wsl bash -c "ln -s /root/ipv6 /mnt/c/Users/ulfl/Nextcloud/Documents/gitea.ipv6/testbed/debian"
-wsl ln -sf /mnt/c/Users/ulfl/Nextcloud/Documents/gitea.ipv6/testbed/debian /root/ipv6
+rem wsl bash -c "ln -s /root/ipv6 /mnt/c/Users/ulfl/Nextcloud/Documents/github.ulflulfl.ipv6/testbed/debian"
+wsl ln -sf /mnt/c/Users/ulfl/Nextcloud/Documents/github.ulflulfl.ipv6/testbed/debian /root/ipv6
 rem TODO: Such a symlink to "Users/ulfl" isn't a general solution
 
 rem @echo --- Copy files to Debian-IPv6 ---
