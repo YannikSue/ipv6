@@ -121,13 +121,13 @@ Tests from alice to bob:
 
 | Service | Protocol | Command on alice | Remark | Wireshark Capture |
 | --- | --- | --- | --- | --- |
-| ping6 | ICMPv6 | `ping6 fd9f:7fa1:4256::bb` | bob's unique local address | ping6_alice_to_bob_fd9f.pcapng |
-| ping6 | ICMPv6 | `ping6 fe80::200:ff:fe00:bb%eth0` | bob's link local address, **beware the %eth0 suffix!**) | TODO:  |
-| echo | TCP | `nc -6 fd9f:7fa1:4256::bb 7` | enter some text, should be echoed | TODO: |
-| echo | UDP | `nc -6 -u fd9f:7fa1:4256::bb 7` | enter some text, should be echoed | TODO: |
-| discard | TCP | `nc -6 fd9f:7fa1:4256::bb 9` | enter some text, nothing happens | TODO: |
-| discard | UDP | `nc -6 -u fd9f:7fa1:4256::bb 9` | enter some text, nothing happens | TODO: |
-| chargen | TCP | `nc -6 fd9f:7fa1:4256::bb 19` | - | TODO: |
-| chargen | UDP | `nc -6 -u fd9f:7fa1:4256::bb 19` | press enter once! | TODO: |
-| iperf3 | TCP | `iperf3 -6 -c fd9f:7fa1:4256::bb` | - | TODO: |
-| iperf3 | UDP | `iperf3 -6 -u -c fd9f:7fa1:4256::bb` | only 1 MBits/s?!? | TODO: |
+| ping6 | ICMPv6 | `ping6 fd9f:7fa1:4256::bb` | bob's unique local address | ping6_alice2bob_fd9f.pcapng |
+| ping6 | ICMPv6 | `ping6 fe80::200:ff:fe00:bb%eth0` | bob's link local address, **beware the %eth0 suffix!**) | ping6_alice2bob_fe80.pcapng |
+| echo | TCP | `nc -6 fd9f:7fa1:4256::bb 7` | enter some text, should be echoed | echo_tcp_alice2bob.pcapng |
+| echo | UDP | `nc -6 -u fd9f:7fa1:4256::bb 7` | enter some text, should be echoed | echo_udp_alice2bob.pcapng |
+| discard | TCP | `nc -6 fd9f:7fa1:4256::bb 9` | enter some text, nothing happens | discard_tcp_alice2bob.pcapng |
+| discard | UDP | `nc -6 -u fd9f:7fa1:4256::bb 9` | enter some text, nothing happens | discard_udp_alice2bob.pcapng |
+| chargen | TCP | `nc -6 fd9f:7fa1:4256::bb 19` | - | chargen_tcp_alice2bob.pcapng |
+| chargen | UDP | `nc -6 -u fd9f:7fa1:4256::bb 19` | press enter once! | chargen_udp_alice2bob.pcapng |
+| iperf3 | TCP | `iperf3 -6 -c fd9f:7fa1:4256::bb` | - | iperf3_tcp_alice2bob_first50packets.pcapng |
+| iperf3 | UDP | `iperf3 -6 -u -c fd9f:7fa1:4256::bb` | only 1 MBits/s?!? | iperf3_udp_alice2bob_first50packets.pcapng |
