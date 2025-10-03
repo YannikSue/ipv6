@@ -12,7 +12,7 @@ After the call of setup.sh (see below), all colored parts will be installed and 
 
 ### Debian
 
-The bash in Debian is the main place to interact with Wireshark and manipulate the docker container. You can us the aliases alice, bob or router to enter the bash in the corresponding container.
+The bash in Debian is the main place to interact with Wireshark and manipulate the docker container. You can use the aliases alice, bob or router to enter the bash in the corresponding container.
 
 ### Container
 
