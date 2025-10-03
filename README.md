@@ -2,5 +2,5 @@
 
 IPv6 experiments:
 
-* [captures](captures) - IPv6 example network packet captures (to be analysed with Wireshark)
-* [testbed](testbed) - IPv6 testbed using some containers (based on wsl & Debian 13) 
+* [captures](captures) - IPv6 example network packet captures (to be viewed with Wireshark)
+* [testbed](testbed) - IPv6 testbed for interactive experiments using some containers
