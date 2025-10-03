@@ -15,7 +15,7 @@ RUN apt update && \
 ADD chargen.sh /
 RUN chmod 755 /chargen.sh
 
-# start init_client.sh at container start
+# start init.sh at container start
 ADD init.sh /
 RUN chmod 755 /init.sh
 CMD ["/init.sh"]
