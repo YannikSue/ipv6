@@ -4,6 +4,11 @@
 # based on: https://superuser.com/questions/1183454/finding-out-the-veth-interface-of-a-docker-container
 CONTAINER_NAME=$1
 WIRESHARK_PARAMETERS=$2
+SET_TSHARK=$3
+if [ -z "$SET_TSHARK" ]; then
+    SET_TSHARK=FALSE
+fi
+
 
 # check if at least parameter $1 is set
 if [ -z $1 ]; then
@@ -11,8 +16,9 @@ if [ -z $1 ]; then
     echo ""
     echo "$0"
     echo Start a Wireshark capture on the interface veth... that represents eth0 of the given docker container
-    echo "Usage: $0 <containername> [<wireshark_parameters>]"
+    echo "Usage: $0 <containername> [<wireshark_parameters>] <SET_TSHARK=FALSE|TRUE>"
     echo "Hint: Use 'docker ps' to get a list of available container names"
+    echo "Example: sudo $0 alice \"-w test.pcap -a duration:20\" TRUE"
     exit -1
 fi
 
@@ -25,4 +31,10 @@ veth=`echo $veth|sed -e 's;^.*net/\(.*\)/ifindex$;\1;'`
 # start wireshark
 # Parameter -k immediately starts capturing and setting the log level avoids clutter on the console
 echo Starting Wireshark capture on container: "$CONTAINER_NAME" at interface: "$veth"
+if [ "$SET_TSHARK" = FALSE ]; then
 wireshark --interface $veth -k --log-level critical $WIRESHARK_PARAMETERS &
+fi
+if [ "$SET_TSHARK" = TRUE ]; then
+    tshark --interface $veth --log-level critical $WIRESHARK_PARAMETERS & #-w $WIRESHARK_OUTFILE -a duration:$WIRESHARK_CAPTURE_DURATION &
+    echo "Wiredock started with tshark, output file: $WIRESHARK_OUTFILE, duration: $WIRESHARK_CAPTURE_DURATION seconds"
+fi

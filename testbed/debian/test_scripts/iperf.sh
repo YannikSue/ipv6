@@ -29,7 +29,9 @@ fi
 echo -----------------------------------------------------------------------------
 echo --- connecting wiredock to container $CONTAINER_NAME ---
 
-../helper/wiredock.sh $CONTAINER_NAME
+WIRESHARK_OUTFILE="./test.pcap"  # automatically stop after 20 seconds
+WIRESHARK_CAPTURE_DURATION=10      # duration in seconds
+../helper/wiredock.sh $CONTAINER_NAME "-w $WIRESHARK_OUTFILE -a duration:$WIRESHARK_CAPTURE_DURATION" TRUE
 if [[ "$?" != 0 ]]; then
   echo "Failed to connect wiredock to container $CONTAINER_NAME"
   exit -1
@@ -46,6 +48,8 @@ echo "Waited 5 seconds -> GOOD"
 
 echo -----------------------------------------------------------------------------
 echo --- executing iperf-helper for ipv6 on container $CONTAINER_NAME ---
+
+
 
 ../helper/iperf-helper.sh $CONTAINER_NAME
 if [[ "$?" != 0 ]]; then
