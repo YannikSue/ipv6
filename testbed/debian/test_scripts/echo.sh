@@ -9,17 +9,19 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 if [[ -z "$1" || "$1" == "help" || "$1" == "-h" || "$1" == "--help" ]]; then
-    echo "Usage: sudo $0 <container_name> [IPv6_ADDRESS] [STRING_TO_ECHO]"
+    echo "Usage: sudo $0 <container_name> [USE_UDP] [IPv6_ADDRESS] [STRING_TO_ECHO]"
     echo "Runs echo test in the given container"
     echo "  <container_name>   Name of the Docker container to run the test in"
+    echo "  [USE_UDP]         (Optional) Use UDP instead of TCP (default: false)"
     echo "  [IPv6_ADDRESS]     (Optional) IPv6 address to use (default: fd9f:7fa1:4256::bb)"
     echo "  [STRING_TO_ECHO]   (Optional) String to echo (default: 'Hello, World!')"
     exit 0
 fi
 
 CONTAINER_NAME="${1:-alice}"
-IPv6_ADDRESS="${2:-fd9f:7fa1:4256::bb}"
-STRING_TO_ECHO="${3:-Hello, World!}"
+USE_UDP="${2:-false}"
+IPv6_ADDRESS="${3:-fd9f:7fa1:4256::bb}"
+STRING_TO_ECHO="${4:-Hello, World!}"
 
 echo -----------------------------------------------------------------------------
 echo --- check container ---
@@ -55,8 +57,14 @@ echo ---------------------------------------------------------------------------
 echo --- executing echo-helper for ipv6 on container $CONTAINER_NAME ---
 
 
+if [[ "$USE_UDP" == "true" ]]; then
+  echo "Using UDP for echo test"
+else
+  echo "Using TCP for echo test"
+fi
 
-../helper/echo-helper.sh $CONTAINER_NAME $IPv6_ADDRESS "$STRING_TO_ECHO"
+../helper/echo-helper.sh $CONTAINER_NAME $USE_UDP $IPv6_ADDRESS "$STRING_TO_ECHO"
+
 if [[ "$?" != 0 ]]; then
     echo "Failed to run echo in container $CONTAINER_NAME"
     exit -1
