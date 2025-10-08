@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [[ $# -lt 1 ]]; then
-  echo "Usage: $0 <argument>"
-  exit 1
-fi
+# if [[ $# -lt 1 ]]; then
+#   echo "Usage: $0 <argument>"
+#   exit 1
+# fi
 
 WIREDOCK="$1"
 echo "Argument provided: $WIREDOCK"

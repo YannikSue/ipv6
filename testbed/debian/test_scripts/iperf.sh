@@ -28,10 +28,8 @@ fi
 
 echo -----------------------------------------------------------------------------
 echo --- connecting wiredock to container $CONTAINER_NAME ---
-
-WIRESHARK_OUTFILE="./test.pcap"  # automatically stop after 20 seconds
-WIRESHARK_CAPTURE_DURATION=10      # duration in seconds
-../helper/wiredock.sh $CONTAINER_NAME "-w $WIRESHARK_OUTFILE -a duration:$WIRESHARK_CAPTURE_DURATION" TRUE
+OUTFILE="/tmp/iperf_from_$CONTAINER_NAME.pcap"
+../helper/wiredock.sh $CONTAINER_NAME $OUTFILE
 if [[ "$?" != 0 ]]; then
   echo "Failed to connect wiredock to container $CONTAINER_NAME"
   exit -1
@@ -42,8 +40,8 @@ fi
 # Refactor this bit to actually wait until wireshark is fully loaded
 echo -----------------------------------------------------------------------------
 echo --- Wait for wiredock to be fully loaded ---
-sleep 5
-echo "Waited 5 seconds -> GOOD"
+sleep 1
+echo "Waited 1 seconds -> GOOD"
 
 
 echo -----------------------------------------------------------------------------
@@ -60,4 +58,4 @@ else
 fi
 
 echo -----------------------------------------------------------------------------
-echo --- iperf3 test done, wireshark can now be saved ---
+echo --- iperf3 test done, wireshark has been saved to $OUTFILE ---

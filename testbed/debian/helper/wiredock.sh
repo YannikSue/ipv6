@@ -3,11 +3,15 @@
 #
 # based on: https://superuser.com/questions/1183454/finding-out-the-veth-interface-of-a-docker-container
 CONTAINER_NAME=$1
-WIRESHARK_PARAMETERS=$2
-SET_TSHARK=$3
-if [ -z "$SET_TSHARK" ]; then
-    SET_TSHARK=FALSE
-fi
+WIRESHARK_OUTFILE="${2:-/tmp/test.pcap}" 
+WIRESHARK_CAPTURE_DURATION="${3:-20}"      # duration in seconds
+SET_TSHARK="${4:-TRUE}"
+
+WIRESHARK_PARAMETERS=$5
+
+# if [ -z "$SET_TSHARK" ]; then
+#     SET_TSHARK=FALSE
+# fi
 
 
 # check if at least parameter $1 is set
@@ -35,6 +39,6 @@ if [ "$SET_TSHARK" = FALSE ]; then
 wireshark --interface $veth -k --log-level critical $WIRESHARK_PARAMETERS &
 fi
 if [ "$SET_TSHARK" = TRUE ]; then
-    tshark --interface $veth --log-level critical $WIRESHARK_PARAMETERS & #-w $WIRESHARK_OUTFILE -a duration:$WIRESHARK_CAPTURE_DURATION &
+    tshark --interface $veth --log-level critical $WIRESHARK_PARAMETERS -w $WIRESHARK_OUTFILE -a duration:$WIRESHARK_CAPTURE_DURATION &
     echo "Wiredock started with tshark, output file: $WIRESHARK_OUTFILE, duration: $WIRESHARK_CAPTURE_DURATION seconds"
 fi
