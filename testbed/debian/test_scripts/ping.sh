@@ -68,3 +68,9 @@ fi
 
 echo -----------------------------------------------------------------------------
 echo --- pingv6 test done, wireshark has been saved to $OUTFILE ---
+
+read -p "Do you want to view the pcap file in Wireshark now? (y/n): " yn
+case "$yn" in
+  [Yy]* ) wireshark "$OUTFILE" & ;;
+  * ) echo "You can view the pcap file later at $OUTFILE";;
+esac
