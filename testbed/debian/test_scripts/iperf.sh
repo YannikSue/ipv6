@@ -29,7 +29,8 @@ fi
 echo -----------------------------------------------------------------------------
 echo --- connecting wiredock to container $CONTAINER_NAME ---
 OUTFILE="/tmp/iperf_from_$CONTAINER_NAME.pcap"
-../helper/wiredock.sh $CONTAINER_NAME $OUTFILE
+../helper/tsharkDock.sh $CONTAINER_NAME $OUTFILE
+
 if [[ "$?" != 0 ]]; then
   echo "Failed to connect wiredock to container $CONTAINER_NAME"
   exit -1
